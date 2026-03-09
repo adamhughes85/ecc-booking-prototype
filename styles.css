@@ -723,6 +723,219 @@ a {
     font-size: 16px;
     border-radius: 10px;
   }
+
+  .page-title {
+    font-size: 28px;
+    margin: 4px 0 18px;
+  }
+
+  .back-link {
+    font-size: 34px;
+  }
+
+  .topic-layout {
+    grid-template-columns: minmax(0, 1fr) 390px;
+    gap: 32px;
+  }
+
+  .topic-column .section-subcopy {
+    font-size: 14px;
+    margin-bottom: 12px;
+  }
+
+  .select-level {
+    height: 46px;
+    font-size: 16px;
+    margin-bottom: 14px;
+  }
+
+  .topic-list {
+    gap: 10px;
+  }
+
+  .topic-card {
+    min-height: 88px;
+    padding: 14px 16px;
+    grid-template-columns: 44px minmax(0, 1fr) 96px;
+    gap: 10px;
+  }
+
+  .topic-thumb {
+    width: 44px;
+    height: 44px;
+    border-radius: 7px;
+  }
+
+  .topic-unit {
+    font-size: 12px;
+    margin-bottom: 4px;
+  }
+
+  .topic-title {
+    font-size: 16px;
+  }
+
+  .topic-pill {
+    width: 96px;
+    font-size: 10px;
+    padding: 7px 8px;
+  }
+
+  .confirm-title {
+    margin-bottom: 12px;
+    font-size: 28px;
+  }
+
+  .confirm-card {
+    padding: 18px 18px;
+    border-radius: 16px;
+  }
+
+  .confirm-topic {
+    margin-bottom: 8px;
+    font-size: 18px;
+  }
+
+  .confirm-description {
+    margin-bottom: 14px;
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  .summary-row {
+    gap: 10px;
+    padding-top: 12px;
+    margin-top: 12px;
+    font-size: 13px;
+  }
+
+  .summary-info {
+    gap: 8px;
+    font-size: 14px;
+  }
+
+  .summary-action {
+    font-size: 14px;
+  }
+
+  .book-button {
+    height: 48px;
+    font-size: 18px;
+  }
+
+  .remaining-copy {
+    margin-top: 12px;
+    font-size: 14px;
+  }
+
+  .note-card {
+    margin-top: 14px;
+    padding: 14px 14px;
+    font-size: 14px;
+    line-height: 1.45;
+  }
+
+  .bookings-title {
+    font-size: 38px;
+    transform: scale(0.52);
+  }
+
+  .bookings-timezone {
+    margin-bottom: 18px;
+    font-size: 28px;
+    transform: scale(0.48);
+  }
+
+  .bookings-count,
+  .bookings-limit {
+    margin-bottom: 18px;
+    font-size: 14px;
+  }
+
+  .bookings-grid {
+    gap: 16px;
+  }
+
+  .booking-card {
+    border-radius: 14px;
+  }
+
+  .booking-image {
+    height: 188px;
+  }
+
+  .booking-body {
+    padding: 12px 14px 14px;
+  }
+
+  .booking-topic {
+    font-size: 34px;
+    transform: scale(0.48);
+  }
+
+  .booking-inline {
+    font-size: 26px;
+    transform: scale(0.46);
+  }
+
+  .booking-line {
+    font-size: 24px;
+    transform: scale(0.46);
+  }
+
+  .disabled-button {
+    height: 46px;
+    font-size: 16px;
+  }
+
+  .sub-link,
+  .cancel-link {
+    font-size: 14px;
+  }
+
+  .add-card {
+    min-height: 340px;
+    font-size: 36px;
+    transform: scale(0.5);
+  }
+
+  .add-icon {
+    width: 34px;
+    height: 34px;
+  }
+
+  .modal-overlay {
+    padding: 20px;
+  }
+
+  .modal-card {
+    width: min(460px, 100%);
+    border-radius: 14px;
+  }
+
+  .modal-heading {
+    padding: 18px 20px 12px;
+    font-size: 40px;
+    transform: scale(0.5);
+  }
+
+  .modal-image {
+    height: 212px;
+  }
+
+  .modal-body {
+    padding: 14px 20px 20px;
+  }
+
+  .modal-meta {
+    font-size: 24px;
+    transform: scale(0.5);
+  }
+
+  .modal-topic {
+    font-size: 38px;
+    transform: scale(0.5);
+  }
 }
 
 .status-banner {

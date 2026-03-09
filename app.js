@@ -1078,7 +1078,7 @@ function findFirstBookableDate(currentState) {
 function getBookingWindow(currentState) {
   const earliest = maxDateISO(currentState.subscription.startDateISO, currentState.demoTodayISO);
   const horizonEnd = getBookingHorizonEndDate(currentState);
-  const latest = minDateISO(currentState.subscription.endDateISO, horizonEnd);
+  const latest = minDateISO(getSubscriptionLastBookableDate(currentState.subscription), horizonEnd);
   if (compareDateISO(earliest, latest) > 0) {
     return null;
   }
@@ -1114,7 +1114,7 @@ function getBookingHorizonMessage(ruleConfig) {
 }
 
 function isWithinSubscriptionWindow(dateISO, subscription) {
-  return compareDateISO(dateISO, subscription.startDateISO) >= 0 && compareDateISO(dateISO, subscription.endDateISO) <= 0;
+  return compareDateISO(dateISO, subscription.startDateISO) >= 0 && compareDateISO(dateISO, subscription.endDateISO) < 0;
 }
 
 function isWithinBookingHorizon(dateISO, currentState) {
@@ -1305,7 +1305,7 @@ function generateCoupons(subscription, promoCouponGrants) {
 
 function generateMonthlyCouponPeriods(subscription) {
   const periods = [];
-  const subscriptionEndExclusiveISO = addDaysISO(subscription.endDateISO, 1);
+  const subscriptionEndExclusiveISO = subscription.endDateISO;
   let currentStartISO = subscription.startDateISO;
   let monthOffset = 0;
 
@@ -1320,6 +1320,10 @@ function generateMonthlyCouponPeriods(subscription) {
   }
 
   return periods;
+}
+
+function getSubscriptionLastBookableDate(subscription) {
+  return addDaysISO(subscription.endDateISO, -1);
 }
 
 function allocateCouponsToBookings(bookings, coupons, initialUsedCouponIds = new Set()) {

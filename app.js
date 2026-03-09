@@ -1,7 +1,6 @@
 /**
  * @typedef {Object} RuleConfig
  * @property {number} maxConcurrentBookings
- * @property {"days"|"current-month"} bookingHorizonMode
  * @property {number} bookingHorizonDays
  * @property {number} lessonDurationMinutes
  * @property {number} slotIntervalMinutes
@@ -87,7 +86,6 @@ const DEFAULT_SUBSCRIPTION = {
 /** @type {RuleConfig} */
 const DEFAULT_RULE_CONFIG = {
   maxConcurrentBookings: 2,
-  bookingHorizonMode: "days",
   bookingHorizonDays: 14,
   lessonDurationMinutes: 40,
   slotIntervalMinutes: 60,
@@ -723,16 +721,6 @@ function onConfigPanelInput(event) {
     return;
   }
 
-  if (target.id === "debug-horizon-mode") {
-    if (target.value === "days" || target.value === "current-month") {
-      state.ruleConfig.bookingHorizonMode = target.value;
-      state.ui.toastMessage = "";
-      reconcileSelectionState();
-      render();
-    }
-    return;
-  }
-
   if (target.id === "debug-horizon-days") {
     const value = Number.parseInt(target.value, 10);
     if (Number.isFinite(value) && value >= 1) {
@@ -868,7 +856,6 @@ function syncConfigPanelInputs() {
   const demoTodayInput = document.getElementById("debug-demo-today");
   const demoTimeInput = document.getElementById("debug-demo-time");
   const maxConcurrentInput = document.getElementById("debug-max-concurrent");
-  const horizonModeInput = document.getElementById("debug-horizon-mode");
   const horizonDaysInput = document.getElementById("debug-horizon-days");
   const subscriptionStartInput = document.getElementById("debug-subscription-start");
   const subscriptionEndInput = document.getElementById("debug-subscription-end");
@@ -880,7 +867,7 @@ function syncConfigPanelInputs() {
   const addPromoButton = document.getElementById("add-promo-grant");
   const clearBookingsButton = document.getElementById("clear-bookings");
 
-  if (!demoTodayInput || !demoTimeInput || !maxConcurrentInput || !horizonModeInput || !horizonDaysInput || !subscriptionStartInput || !subscriptionEndInput || !creditsPerMonthInput || !consumedThisMonthInput || !promoList || !promoEmpty || !couponSettingsNote || !addPromoButton || !clearBookingsButton) {
+  if (!demoTodayInput || !demoTimeInput || !maxConcurrentInput || !horizonDaysInput || !subscriptionStartInput || !subscriptionEndInput || !creditsPerMonthInput || !consumedThisMonthInput || !promoList || !promoEmpty || !couponSettingsNote || !addPromoButton || !clearBookingsButton) {
     return;
   }
 
@@ -889,9 +876,7 @@ function syncConfigPanelInputs() {
   demoTodayInput.value = state.demoTodayISO;
   demoTimeInput.value = state.demoNowTime;
   maxConcurrentInput.value = String(state.ruleConfig.maxConcurrentBookings);
-  horizonModeInput.value = state.ruleConfig.bookingHorizonMode;
   horizonDaysInput.value = String(state.ruleConfig.bookingHorizonDays);
-  horizonDaysInput.disabled = state.ruleConfig.bookingHorizonMode === "current-month";
 
   subscriptionStartInput.value = state.subscription.startDateISO;
   subscriptionEndInput.value = state.subscription.endDateISO;
@@ -1086,9 +1071,6 @@ function getBookingWindow(currentState) {
 }
 
 function getBookingHorizonEndDate(currentState) {
-  if (currentState.ruleConfig.bookingHorizonMode === "current-month") {
-    return endOfMonthISO(currentState.demoTodayISO);
-  }
   const clampedDays = Math.min(31, Math.max(1, currentState.ruleConfig.bookingHorizonDays));
   return addDaysISO(currentState.demoTodayISO, clampedDays);
 }
@@ -1098,17 +1080,11 @@ function getDemoNowDate(currentState) {
 }
 
 function getBookingHorizonEndDateTime(currentState) {
-  if (currentState.ruleConfig.bookingHorizonMode === "current-month") {
-    return endOfDayDate(endOfMonthISO(currentState.demoTodayISO));
-  }
   const demoNow = getDemoNowDate(currentState);
   return new Date(demoNow.getTime() + Math.min(31, Math.max(1, currentState.ruleConfig.bookingHorizonDays)) * 24 * 60 * 60 * 1000);
 }
 
 function getBookingHorizonMessage(ruleConfig) {
-  if (ruleConfig.bookingHorizonMode === "current-month") {
-    return "You can only book within the current month.";
-  }
   const clampedDays = Math.min(31, Math.max(1, ruleConfig.bookingHorizonDays));
   return `You can only book within ${clampedDays} days (${clampedDays * 24} hours) from now.`;
 }

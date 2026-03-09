@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ECC Booking Prototype</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="top-header">
+      <div class="top-header-inner">
+        <div class="logo" aria-label="ECC">ECC</div>
+        <div id="top-config" class="top-config">
+          <button
+            type="button"
+            id="top-config-toggle"
+            class="config-toggle"
+            aria-expanded="false"
+            aria-controls="config-panel"
+          >
+            Demo settings
+          </button>
+          <section id="config-panel" class="config-panel top-config-panel" hidden aria-label="Demo settings">
+            <div class="top-config-header">
+              <h2>Demo settings</h2>
+              <button
+                type="button"
+                id="top-config-close"
+                class="top-config-close"
+                aria-label="Close demo settings"
+              >
+                ×
+              </button>
+            </div>
+
+            <label class="config-field">
+              <span>Demo today date</span>
+              <input id="debug-demo-today" type="date" />
+            </label>
+            <label class="config-field">
+              <span>Current time</span>
+              <input id="debug-demo-time" type="time" step="3600" />
+            </label>
+            <label class="config-field">
+              <span>Max concurrent bookings</span>
+              <input id="debug-max-concurrent" type="number" min="1" max="12" step="1" />
+            </label>
+            <label class="config-field">
+              <span>Booking horizon mode</span>
+              <select id="debug-horizon-mode">
+                <option value="days">Custom days</option>
+                <option value="current-month">Only current month</option>
+              </select>
+            </label>
+            <label class="config-field">
+              <span>Booking horizon (days)</span>
+              <input id="debug-horizon-days" type="number" min="1" max="31" step="1" />
+            </label>
+
+            <label class="config-field config-field-wide">
+              <span>Credits mode</span>
+              <select id="debug-credit-mode" disabled>
+                <option value="monthly" selected>Monthly mode</option>
+              </select>
+            </label>
+
+            <label class="config-field">
+              <span>Subscription start date</span>
+              <input id="debug-subscription-start" type="date" />
+            </label>
+            <label class="config-field">
+              <span>Subscription end date</span>
+              <input id="debug-subscription-end" type="date" />
+            </label>
+            <label class="config-field config-field-wide">
+              <span>Credits per month</span>
+              <input id="debug-credits-per-month" type="number" min="1" max="12" step="1" />
+            </label>
+            <label class="config-field config-field-wide">
+              <span>Credits consumed this month</span>
+              <input id="debug-consumed-this-month" type="number" min="0" max="12" step="1" />
+            </label>
+
+            <p id="coupon-settings-note" class="config-note" hidden>
+              Coupon settings are locked while bookings exist. Clear current bookings to change them.
+            </p>
+
+            <section class="config-section promo-config-section" aria-label="Promotional coupons">
+              <div class="config-section-header">
+                <h3>Promotional coupons</h3>
+                <button type="button" id="add-promo-grant" class="config-secondary-button" data-action="add-promo-grant">
+                  Add promotional coupon
+                </button>
+              </div>
+              <p id="promo-grants-empty" class="config-empty">No promotional coupons configured.</p>
+              <div id="promo-grants-list" class="promo-grants-list"></div>
+            </section>
+
+            <div class="config-actions">
+              <button type="button" id="clear-bookings" class="config-danger-button" data-action="clear-bookings">
+                Clear current bookings
+              </button>
+            </div>
+          </section>
+        </div>
+        <nav class="primary-nav" aria-label="Primary">
+          <a class="nav-link" href="javascript:void(0)">Home</a>
+          <a class="nav-link" href="javascript:void(0)">Study</a>
+          <a class="nav-link is-active" href="javascript:void(0)" data-action="top-nav-classes">Classes</a>
+          <a class="nav-link" href="javascript:void(0)">Me</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="app" class="app-shell" aria-live="polite"></main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
